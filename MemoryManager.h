@@ -9,6 +9,8 @@
 #include <iostream>
 #include <list>
 #include <vector>
+#include <iostream>
+#include <fstream>
 
 using namespace std;
 int bestFit(int sizeInWords, void *list){
@@ -55,19 +57,18 @@ int worstFit(int sizeInWords, void *list){
 
 class MemoryManager {
 private:
+
+
     unsigned int wordSize;
     function<int(int, void *)> allocator;
-    vector<int> lists;
     char *charMap;
     int holes;
-    int * arr;
-public:
-    struct Hole{
-        size_t length;
-        size_t position;
-        struct Hole *next;
+    int *arr;
+    vector <int> wordVector;
+    vector <int> holeVector;
 
-    };
+public:
+
 MemoryManager(unsigned int wordSize, std::function<int(int, void *)> allocator);
 void shutdown();
 void initialize(size_t sizeInWords);
@@ -81,7 +82,7 @@ void *getBitmap();
 unsigned int getWordSize();
 void *getMemoryStart();
 unsigned getMemoryLimit();
-
+void findHoles();
 ~MemoryManager();
 
 };
